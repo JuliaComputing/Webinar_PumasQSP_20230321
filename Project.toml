@@ -1,0 +1,7 @@
+name = "WebinarPumasQSP20230321"
+uuid = "899a4a83-1fd6-4e71-8747-c108fff99e8f"
+authors = ["paulflang "]
+version = "0.1.0"
+
+[deps]
+PumasQSP = "5526fe93-3145-4cc2-889a-1fb5ef00f63e"
