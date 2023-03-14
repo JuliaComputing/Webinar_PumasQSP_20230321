@@ -1,6 +1,6 @@
 module WebinarPumasQSP20230321
 
-using PumasQSP
+using JuliaSimModelOptimizer
 using SBMLToolkit
 
 model_dir = joinpath(@__DIR__, "..", "Erdem_PlOSComputBiol2021")
@@ -23,6 +23,11 @@ sol = solve(prob)
 trial1 = Trial(nothing, ssys)
 
 ## Import the whole problem as a PEtab model
+model_dir = joinpath(@__DIR__, "..", "Erdem_PlOSComputBiol2021_simple")
+
+petabyaml = joinpath(model_dir, "petab.yaml")
+invprob = import_petab(petabyaml)
+res = calibrate(invprob, SingleShooting(maxiters = 1))
 
 
 end # module WebinarPumasQSP20230321
