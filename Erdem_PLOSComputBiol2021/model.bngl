@@ -143,10 +143,10 @@ begin reaction rules
 	# Initial ligand-receptor binding     
     IGF1(rec) + IGF1R(lig,int~N,phos~U)  <->  IGF1(rec!1).IGF1R(lig!1,int~N,phos~U) 	10^kf1,10^kf1b
 	IGF1R(lig!+,int~N,phos~U) -> IGF1R(lig!+,int~N,phos~P)		10^kf1c
-	IGF1R(lig!+,int~N,phos~P) -> IGF1R(lig,int~N,phos~U)		10^kf1d
+	IGF1R(lig!+,int~N,phos~P) -> IGF1R(lig!+,int~N,phos~U)		10^kf1d  # Corrected by PFL
     Ins(rec) + InsR(lig,int~N,phos~U)  <->  Ins(rec!1).InsR(lig!1,int~N,phos~U) 	10^kf2,10^kf2b
     InsR(lig!+,int~N,phos~U) -> InsR(lig!+,int~N,phos~P)	10^kf2c
- 	InsR(lig!+,int~N,phos~P) -> InsR(lig,int~N,phos~U)		10^kf2d
+ 	InsR(lig!+,int~N,phos~P) -> InsR(lig!+,int~N,phos~U)		10^kf2d  # Corrected by PFL
     
     # pReceptor-IRS binding and activation
     IGF1R(int~N,phos~P) + IRS(inh~N,phos~U) -> IGF1R(int~N,phos~P) + IRS(inh~N,phos~P)		10^kf3
