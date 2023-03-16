@@ -54,7 +54,7 @@ ic_S2_high	log10	0	2.00E-35	1.00E-35	0
 kf7_nodrug	lin	-4.04	-2.04	-3.04	0
 kf7_inhibited	lin	-5.04	-3.04	-4.04	0
 kf208_nodrug	lin	-6.0059	-4.0059	-5.0059	1
-kf208_sideeffect	lin	-6.5059	-4.5059	-5.0059	1
+kf208_sideeffect	lin	-6.5059	-4.5059	-5.5	1
 offset_pRecTot_free	lin	100	10000	1000	1
 offset_pAkt308_free	lin	200	20000	2000	1
 offset_pRPS6K_free	lin	300	30000	3000	1

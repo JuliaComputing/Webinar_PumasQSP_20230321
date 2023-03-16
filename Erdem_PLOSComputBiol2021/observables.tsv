@@ -1,5 +1,5 @@
 observableId	observableFormula	noiseType	noiseFormula
-obs_pRecTot_free	offset_pRecTot_free + scale_pRecTot_free * (S19 + S20)	normal	noise_additive + noise_multiplicative * pRecTot_free
-obs_pAkt308_free	offset_pAkt308_free + scale_pAkt308_free * S30	logNormal	noise_additive + noise_multiplicative * pAkt308_free
-obs_pRPS6K_free	offset_pRPS6K_free + scale_pRPS6K_free * S38	laplace	noise_additive + noise_multiplicative * pRPS6K_free
-obs_pERK_free	offset_pERK_free + scale_pERK_free * S31	logLaplace	noise_additive + noise_multiplicative * pERK_free
+obs_pRecTot_free	offset_pRecTot_free + scale_pRecTot_free * (S19 + S20)	normal	noise_additive + noise_multiplicative * obs_pRecTot_free
+obs_pAkt308_free	offset_pAkt308_free + scale_pAkt308_free * S30	logNormal	noise_additive + noise_multiplicative * obs_pAkt308_free
+obs_pRPS6K_free	offset_pRPS6K_free + scale_pRPS6K_free * S38	laplace	noise_additive + noise_multiplicative * obs_pRPS6K_free
+obs_pERK_free	offset_pERK_free + scale_pERK_free * S31	logLaplace	noise_additive + noise_multiplicative * obs_pERK_free
