@@ -63,5 +63,5 @@ scale_pRecTot_free	lin	0.08	8	0.8	1
 scale_pAkt308_free	lin	0.09	9	0.9	1
 scale_pRPS6K_free	lin	0.1	10	1	1
 scale_pERK_free	lin	0.11	11	1.1	1
-noise_additive	lin	0.05	0.2	0.1	1
-noise_multiplicative	lin	0.1	0.4	0.2	1
+noise_additive	lin	500	2000	1000	1
+noise_multiplicative	lin	0.05	0.2	0.1	1
