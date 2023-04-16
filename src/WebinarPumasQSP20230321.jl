@@ -30,15 +30,18 @@ trial1 = Trial(nothing, ssys)
 petabyaml = joinpath(model_dir, "petab.yaml")
 invprob = import_petab(petabyaml)
 
-using OptimizationPolyalgorithms
-vp = vpop(invprob, StochGlobalOpt(solver=PolyOpt(), maxiters = 20), population_size=1)
-CSV.write(joinpath(model_dir, "results", "vpop.csv"), vp)
+# using OptimizationPolyalgorithms
+# vp = vpop(invprob, StochGlobalOpt(solver=PolyOpt(), maxiters = 20), population_size=20)
+# CSV.write(joinpath(model_dir, "results", "vpop.csv"), vp)
 vp = CSV.read(joinpath(model_dir, "results", "vpop.csv"), DataFrame)
 vp = import_vpop(vp, invprob)
 
+states = ["obs_pRecTot_free", "obs_pAkt308_free",
+          "obs_pRPS6K_free", "obs_pERK_free"]
 for trial in JuliaSimModelOptimizer.get_trials(invprob)
     # p = plot(vp, trial, show_data=true, title = nameof(trial), legend=:outertopright)
-    p = plot(vp, trial; title = nameof(trial), legend=:outertopright)
+    p = plot(vp, trial; title = nameof(trial),
+             states=states, legend=:outertopright)
     display(p)
     savefig(joinpath(model_dir, "results", nameof(trial) * ".png"))
 end
