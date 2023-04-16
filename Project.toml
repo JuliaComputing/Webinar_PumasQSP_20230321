@@ -4,8 +4,11 @@ authors = ["paulflang "]
 version = "0.1.0"
 
 [deps]
+CSV = "336ed68f-0bac-5ca0-87d4-7b16caf5d00b"
+DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
 JuliaSimModelOptimizer = "e76a656c-db09-4a9a-8f5e-6a4d9ca4a950"
 ModelingToolkit = "961ee093-0014-501f-94e3-6117800e7a78"
+OptimizationPolyalgorithms = "500b13db-7e66-49ce-bda4-eed966be6282"
 OrdinaryDiffEq = "1dea7af3-3e70-54e6-95c3-0bf5283fa5ed"
 PumasQSP = "5526fe93-3145-4cc2-889a-1fb5ef00f63e"
 SBMLToolkit = "86080e66-c8ac-44c2-a1a0-9adaadfe4a4e"
