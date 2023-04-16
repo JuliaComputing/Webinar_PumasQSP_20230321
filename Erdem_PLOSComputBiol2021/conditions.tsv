@@ -1,5 +1,5 @@
-conditionId	S1	S2	kf7	kf208
-c1	ic_S1_low	ic_S2_high	kf7_nodrug	kf208_nodrug
-c2	ic_S1_high	ic_S2_low	kf7_nodrug	kf208_nodrug
-c3	ic_S1_low	ic_S2_high	kf7_inhibited	kf208_sideeffect
-c4	ic_S1_high	ic_S2_low	kf7_inhibited	kf208_sideeffect
+conditionId	S1	S2	kf13	kf17
+c1	ic_S1_low	ic_S2_high	kf13_nodrug	kf17_nodrug
+c2	ic_S1_high	ic_S2_low	kf13_nodrug	kf17_nodrug
+c3	ic_S1_low	ic_S2_high	kf13_inhibited	kf17_sideeffect
+c4	ic_S1_high	ic_S2_low	kf13_inhibited	kf17_sideeffect
