@@ -36,6 +36,7 @@ invprob = InverseProblem(trials, sys, ss)
 # CSV.write(joinpath(model_dir, "results", "vpop.csv"), vp)
 vp = CSV.read(joinpath(model_dir, "results", "vpop.csv"), DataFrame)
 vp = import_vpop(vp, invprob)
+export_petab(petabyaml, vp)
 
 @variables t obs_pRecTot_free(t) obs_pAkt308_free(t) obs_pRPS6K_free(t) obs_pERK_free(t)
 states = [obs_pRecTot_free, obs_pAkt308_free, obs_pRPS6K_free, obs_pERK_free]
