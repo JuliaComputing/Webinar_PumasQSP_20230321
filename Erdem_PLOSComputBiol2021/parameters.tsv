@@ -47,10 +47,10 @@ kf401	lin	-4.1016	-2.1016	-3.1016	1
 kf402	lin	-3.9249	-1.9249	-2.9249	1
 kf403	lin	-4.4193	-2.4193	-3.4193	1
 kf404	lin	-8.0807	-6.0807	-7.0807	1
-ic_S1_low	log	0	0	0	0
-ic_S1_high	log	0	200000	100000	0
-ic_S2_low	log10	0	0	0	0
-ic_S2_high	log10	0	2.00E-35	1.00E-35	0
+ic_S1_low	lin	0	0	0	0
+ic_S1_high	lin	0	200000	100000	0
+ic_S2_low	lin	0	0	0	0
+ic_S2_high	lin	0	200000	100000	0
 kf13_nodrug	lin	-7.2483	-5.2483	-6.2483	0
 kf13_inhibited	lin	-8.2483	-6.2483	-7.2483	0
 kf17_nodrug	lin	-8.7124	-6.7124	-7.7124	1
