@@ -103,16 +103,18 @@ sys = readSBML(sbmlfile, ODESystemImporter())
 
 # Create a ReactionSystem de novo
 using Catalyst
-@variables t S(t)=0.99 I(t)=0.01 R(t)=0.0
-@parameters α=1e-4 β=1e-2
 rsys = @reaction_network begin
     α, S + I --> 2I
     β, I --> R
 end
 sys = convert(ODESystem, rsys)
 
+@variables t
+@species S(t) I(t) R(t)
+@parameters α β
+
 ssys = structural_simplify(sys)
-prob = ODEProblem(ssys, [], (0.0, 250.0))
+prob = ODEProblem(ssys, [S=>0.99 I=>0.01 R=>0.0], (0.0, 250.0), [α=>0.1, β=>0.01])
 sol = solve(prob)
 plot(sol)
 
