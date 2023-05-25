@@ -2,14 +2,15 @@
 # Load dependencies                                           #
 ###############################################################
 using Distributed
-addprocs(10, exeflags="--project=$(Base.active_project())")
+addprocs(2, exeflags="--project=$(Base.active_project())")
 @everywhere using JuliaSimModelOptimizer, OptimizationOptimJL, OptimizationBBO
 
 using CSV
 using DataFrames
+using Dates
 using JuliaSimModelOptimizer: get_trials, get_model, get_search_space,
                               get_initial_assignments, get_petab_problem,
-                              export_petab, report, get_states
+                              export_petab, get_states
 using OrdinaryDiffEq: TRBDF2, remake, solve
 using Plots
 
@@ -18,9 +19,10 @@ using Plots
 # Import the whole problem as a PEtab model                   #
 ###############################################################
 using PumasQSP
+# using PumasQSP: import_petab
 model_dir = joinpath(@__DIR__, "..", "Erdem_PLOSComputBiol2021")
 petabyaml = joinpath(model_dir, "petab.yaml")  # Use petablint to validate the PEtab model.
-invprob = import_petab(petabyaml)
+invprob = PumasQSP.import_petab(petabyaml)
 
 # Optional: updating the ODE solver for the trials
 trials = []
@@ -62,20 +64,31 @@ sendto(workers(), invprob=invprob)
 end
 
 @info "Starting parallel computation"
-results = pmap(parvp, algos)
+results = pmap(parres, algos[3:4])
 @info "Finished parallel computation"
 
 for (i, vp) in enumerate(results)
-    invprob = vp.prob
-    dn = joinpath(dirname(@__FILE__), "plots", "20230523_$(i)")
+    dn = joinpath(dirname(@__FILE__), "plots", "$(now())_$(i)")
     mkpath(dn)
-    CSV.write(joinpath(dn, "res.csv"), vp)
+    df = DataFrame([vp.u], :auto)
+    CSV.write(joinpath(dn, "res.csv"), df)
 
     for trial in get_trials(invprob)
         p = plot(trial, invprob, vp, show_data=true, title = nameof(trial), legend=:outertopright)
         savefig(joinpath(dn, nameof(trial) * ".png"))
     end
     p1 = convergenceplot(vp)
-    savefig(joinpath(dn, nameof(trial) * "conv.png"))
+    savefig(joinpath(dn, "conv.png"))
 end
 @info "Finished writing files"
+
+
+# df = CSV.read(joinpath("Erdem_PLOSComputBiol2021", "parameters.tsv"), DataFrame)
+# lb = df[!, :lowerBound]
+# ub = df[!, :upperBound]
+# randnom = lb .+ (ub .- lb) .* rand(length(lb))
+# nominal = df[!, :nominalValue]
+# dfr = copy(df)
+# dfr[:, :nominalValue] = randnom
+# dfr
+# CSV.write(joinpath("Erdem_PLOSComputBiol2021", "parameters_rand.tsv"), dfr, delim='\t')

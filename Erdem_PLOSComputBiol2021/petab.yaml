@@ -1,5 +1,5 @@
 format_version: 1
-parameter_file: parameters.tsv
+parameter_file: parameters_rand.tsv
 problems:
 - condition_files:
   - conditions.tsv
