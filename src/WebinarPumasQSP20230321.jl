@@ -30,19 +30,36 @@ ss = get_search_space(invprob)
 invprob = InverseProblem(trials, sys, ss)
 
 # Running the optimization
-# vp = vpop(invprob, StochGlobalOpt(maxiters = 10000),
-#           population_size=50,
-#           parallel_type = EnsembleDistributed())
-# CSV.write(joinpath(model_dir, "results", "vpop.csv"), vp)
+vp = vpop(invprob, StochGlobalOpt(maxiters = 10000, parallel_type = JuliaSimModelOptimizer.EnsembleDistributed()),
+          population_size=50)
+CSV.write(joinpath(model_dir, "results", "vpop.csv"), vp)
 vp = CSV.read(joinpath(model_dir, "results", "vpop.csv"), DataFrame)
 vp = import_vpop(vp, invprob)
 
+using ModelingToolkit
 @variables t obs_pRecTot_free(t) obs_pAkt308_free(t) obs_pRPS6K_free(t) obs_pERK_free(t)
 states = [obs_pRecTot_free, obs_pAkt308_free, obs_pRPS6K_free, obs_pERK_free]
+p = plot(layout=(2, 2), dpi=600, size = (900, 500))
 for trial in get_trials(invprob)
-    p = plot(vp, trial , show_data=true, states=states, title = nameof(trial), legend=:outertopright)
+    if nameof(trial) == "c1"
+        plot!(vp, trial , subplot=1, show_data=true, subplotstates=states,
+              title = nameof(trial), legend=false, xlabel="", ylabel="Signal (AU)",
+              bottom_margin=5*Plots.mm, left_margin=5*Plots.mm)
+    elseif nameof(trial) == "c2"
+        plot!(vp, trial , subplot=2, show_data=true, subplotstates=states,
+              title = nameof(trial), legend=false, xlabel="", ylabel="",
+              bottom_margin=5*Plots.mm, left_margin=5*Plots.mm)
+    elseif nameof(trial) == "c3"
+        plot!(vp, trial , subplot=3, show_data=true, subplotstates=states,
+              title = nameof(trial), legend=false, xlabel="Time (s)", ylabel="Signal (AU)",
+              left_margin=5*Plots.mm)
+    else
+        plot!(vp, trial , subplot=4, show_data=true, subplotstates=states,
+              title = nameof(trial), legend=:topright, xlabel="Time (s)", ylabel="",
+              left_margin=5*Plots.mm, legendfontsize=7)
+    end
     display(p)
-    savefig(joinpath(model_dir, "results", nameof(trial) * ".png"))
+    savefig(joinpath(model_dir, "results", "alltrials" * ".png"))
 end
 
 ## Other ways of importing models (not optimization problems)
@@ -54,7 +71,6 @@ sys = convert(ODESystem, rsys)
 
 sys = readSBML(sbmlfile, ODESystemImporter())
 
-using ModelingToolkit
 sys = structural_simplify(sys)  # PumasQSP `petab_import` does that for you.
 
 # Importing CellML
